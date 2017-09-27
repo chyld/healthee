@@ -12,7 +12,7 @@ class App extends Component {
   // ------------------------------------------------------------------------------------------ //
   componentDidMount() {
     const config = { method: "get" };
-    fetch("http://localhost:3000/logs", config)
+    fetch("http://localhost:5555/logs", config)
       .then(response => {
         return response.json();
       })
@@ -38,7 +38,7 @@ class App extends Component {
       method: "post",
       body: JSON.stringify(body)
     };
-    fetch("http://localhost:3000/logs", config)
+    fetch("http://localhost:5555/logs", config)
       .then(response => {
         return response.json();
       })
