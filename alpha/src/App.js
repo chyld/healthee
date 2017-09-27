@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-
+const BASE_URL = process.env.REACT_APP_RAILS_BASE_URL;
 class App extends Component {
   // ------------------------------------------------------------------------------------------ //
   constructor(props) {
@@ -11,8 +11,8 @@ class App extends Component {
   }
   // ------------------------------------------------------------------------------------------ //
   componentDidMount() {
-    const config = { method: "get" };
-    fetch("http://localhost:5555/logs", config)
+    const options = { method: "get" };
+    fetch(`${BASE_URL}/logs`, options)
       .then(response => {
         return response.json();
       })
@@ -33,12 +33,12 @@ class App extends Component {
     body.is_fast = this.form.is_fast.checked;
     body.is_sick = this.form.is_sick.checked;
     body.is_sugar = this.form.is_sugar.checked;
-    const config = {
+    const options = {
       headers: { "Content-Type": "application/json" },
       method: "post",
       body: JSON.stringify(body)
     };
-    fetch("http://localhost:5555/logs", config)
+    fetch(`${BASE_URL}/logs`, options)
       .then(response => {
         return response.json();
       })
