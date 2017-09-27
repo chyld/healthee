@@ -1,26 +1,27 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
   // ------------------------------------------------------------------------------------------ //
-  constructor(props){
+  constructor(props) {
     super(props);
     this.create = this.create.bind(this);
     this.form = {};
-    this.state = {logs: []};
+    this.state = { logs: [] };
   }
   // ------------------------------------------------------------------------------------------ //
-  componentDidMount(){
-    const config = {method: 'get'};
-    fetch('http://localhost:3000/logs', config)
-    .then(response => {
-      return response.json();})
-    .then(json => {
-      this.setState({logs: json.logs})
-    });
+  componentDidMount() {
+    const config = { method: "get" };
+    fetch("http://localhost:3000/logs", config)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        this.setState({ logs: json.logs });
+      });
   }
   // ------------------------------------------------------------------------------------------ //
-  create(event){
+  create(event) {
     const body = {};
     body.date = this.form.date.value;
     body.active_calories = this.form.active_calories.value;
@@ -33,42 +34,54 @@ class App extends Component {
     body.is_sick = this.form.is_sick.checked;
     body.is_sugar = this.form.is_sugar.checked;
     const config = {
-      headers: {"Content-Type": "application/json"},
-      method: 'post', body: JSON.stringify(body)
+      headers: { "Content-Type": "application/json" },
+      method: "post",
+      body: JSON.stringify(body)
     };
-    fetch('http://localhost:3000/logs', config)
-    .then(response => {
-      return response.json();})
-    .then(json => {
-      console.log('json post:', json);
-    });
+    fetch("http://localhost:3000/logs", config)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        console.log("json post:", json);
+      });
     event.preventDefault();
   }
   // ------------------------------------------------------------------------------------------ //
   render() {
     return (
       <div className="App">
-
         <form onSubmit={this.create}>
-          <input type="date" ref={x => this.form.date = x} />
+          <input type="date" ref={x => (this.form.date = x)} />
           cals
-          <input type="number" ref={x => this.form.active_calories = x} />
+          <input type="number" ref={x => (this.form.active_calories = x)} />
           eaten
-          <input type="number" ref={x => this.form.consumed_calories = x} />
+          <input type="number" ref={x => (this.form.consumed_calories = x)} />
           min
-          <input type="number" ref={x => this.form.total_exercise_minutes = x} />
+          <input
+            type="number"
+            ref={x => (this.form.total_exercise_minutes = x)}
+          />
           7
-          <input type="number" ref={x => this.form.seven_minute = x} />
+          <input type="number" ref={x => (this.form.seven_minute = x)} />
           lbs
-          <input type="number" step="any" ref={x => this.form.actual_weight = x} />
+          <input
+            type="number"
+            step="any"
+            ref={x => (this.form.actual_weight = x)}
+          />
           miles
-          <input type="number" step="any" ref={x => this.form.total_distance_miles = x} />
+          <input
+            type="number"
+            step="any"
+            ref={x => (this.form.total_distance_miles = x)}
+          />
           fast
-          <input type="checkbox" ref={x => this.form.is_fast = x} />
+          <input type="checkbox" ref={x => (this.form.is_fast = x)} />
           sick
-          <input type="checkbox" ref={x => this.form.is_sick = x} />
+          <input type="checkbox" ref={x => (this.form.is_sick = x)} />
           sugar
-          <input type="checkbox" ref={x => this.form.is_sugar = x} />
+          <input type="checkbox" ref={x => (this.form.is_sugar = x)} />
           <input type="submit" value="Submit" />
         </form>
 
@@ -92,28 +105,26 @@ class App extends Component {
             </tr>
           </thead>
           <tbody>
-            {
-              this.state.logs.map((log, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{log.date}</td>
-                    <td>{log.active_calories}</td>
-                    <td>{log.passive_calories}</td>
-                    <td>{log.burned_calories}</td>
-                    <td>{log.consumed_calories}</td>
-                    <td>{log.net_calories}</td>
-                    <td>{log.net_pounds}</td>
-                    <td>{log.actual_weight}</td>
-                    <td>{log.total_distance_miles}</td>
-                    <td>{log.total_exercise_minutes}</td>
-                    <td>{log.seven_minute}</td>
-                    <td>{log.is_sugar.toString()}</td>
-                    <td>{log.is_fast.toString()}</td>
-                    <td>{log.is_sick.toString()}</td>
-                  </tr>
-                );
-              })
-            }
+            {this.state.logs.map((log, i) => {
+              return (
+                <tr key={i}>
+                  <td>{log.date}</td>
+                  <td>{log.active_calories}</td>
+                  <td>{log.passive_calories}</td>
+                  <td>{log.burned_calories}</td>
+                  <td>{log.consumed_calories}</td>
+                  <td>{log.net_calories}</td>
+                  <td>{log.net_pounds}</td>
+                  <td>{log.actual_weight}</td>
+                  <td>{log.total_distance_miles}</td>
+                  <td>{log.total_exercise_minutes}</td>
+                  <td>{log.seven_minute}</td>
+                  <td>{log.is_sugar.toString()}</td>
+                  <td>{log.is_fast.toString()}</td>
+                  <td>{log.is_sick.toString()}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
