@@ -3,12 +3,7 @@ class LogsController < ApplicationController
       logs = Log.order(date: 'asc')
       render json: {logs: logs}
     end
-  
-    def new
-      @log = Log.new
-      render :form
-    end
-  
+    
     def create
       @log = Log.new(params[:log].permit(:date, :active_calories, :consumed_calories, :is_fast, :is_sick, :actual_weight, :total_distance_miles, :total_exercise_minutes, :is_sugar, :seven_minute))
   
@@ -20,17 +15,12 @@ class LogsController < ApplicationController
       end
   
       if @log.save
-        redirect_to logs_path
+        render json: @log
       else
-        render :form
+        render json: {errors: @log.errors}
       end
     end
-  
-    def edit
-      @log = Log.find(params[:id])
-      render :form
-    end
-  
+    
     def update
       @log = Log.find(params[:id])
       @log.assign_attributes(params[:log].permit(:date, :active_calories, :consumed_calories, :is_fast, :is_sick, :actual_weight, :total_distance_miles, :total_exercise_minutes, :is_sugar, :seven_minute))
