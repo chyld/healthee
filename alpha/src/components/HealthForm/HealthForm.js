@@ -6,6 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.create = this.create.bind(this);
+    this.clear = this.clear.bind(this);
     this.form = {};
   }
   // ------------------------------------------------------------------------------------------ //
@@ -27,9 +28,23 @@ class App extends Component {
       body: JSON.stringify(body)
     };
     fetch(`${this.props.BASE_URL}/logs`, options).then(_ => {
+      this.clear();
       this.props.redraw();
     });
     event.preventDefault();
+  }
+  // ------------------------------------------------------------------------------------------ //
+  clear() {
+    this.form.date.value = "";
+    this.form.active_calories.value = "";
+    this.form.consumed_calories.value = "";
+    this.form.total_exercise_minutes.value = "";
+    this.form.seven_minute.value = "";
+    this.form.actual_weight.value = "";
+    this.form.total_distance_miles.value = "";
+    this.form.is_fast.checked = false;
+    this.form.is_sick.checked = false;
+    this.form.is_sugar.checked = false;
   }
   // ------------------------------------------------------------------------------------------ //
   render() {
