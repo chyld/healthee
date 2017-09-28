@@ -27,7 +27,9 @@ export default props => {
           {props.logs.map((log, i) => {
             return (
               <tr key={i}>
-                <td>{log.date}</td>
+                <td>
+                  <button onClick={_ => props.edit(log.id)}>{log.date}</button>
+                </td>
                 <td>{log.active_calories}</td>
                 <td>{log.passive_calories}</td>
                 <td>{log.burned_calories}</td>

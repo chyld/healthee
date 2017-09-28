@@ -7,6 +7,7 @@ class App extends Component {
     super(props);
     this.create = this.create.bind(this);
     this.clear = this.clear.bind(this);
+    this.set = this.set.bind(this);
     this.form = {};
   }
   // ------------------------------------------------------------------------------------------ //
@@ -22,12 +23,18 @@ class App extends Component {
     body.is_fast = this.form.is_fast.checked;
     body.is_sick = this.form.is_sick.checked;
     body.is_sugar = this.form.is_sugar.checked;
+
+    const isNew = this.form.id.value === "";
+
     const options = {
       headers: { "Content-Type": "application/json" },
-      method: "post",
+      method: isNew ? "post" : "put",
       body: JSON.stringify(body)
     };
-    fetch(`${this.props.BASE_URL}/logs`, options).then(_ => {
+    fetch(
+      `${this.props.BASE_URL}/logs/${this.form.id.value}`,
+      options
+    ).then(_ => {
       this.clear();
       this.props.redraw();
     });
@@ -35,6 +42,7 @@ class App extends Component {
   }
   // ------------------------------------------------------------------------------------------ //
   clear() {
+    this.form.id.value = "";
     this.form.date.value = "";
     this.form.active_calories.value = "";
     this.form.consumed_calories.value = "";
@@ -47,10 +55,38 @@ class App extends Component {
     this.form.is_sugar.checked = false;
   }
   // ------------------------------------------------------------------------------------------ //
+  set(log) {
+    this.form.id.value = log.id;
+    this.form.date.value = log.date;
+    this.form.active_calories.value = log.active_calories;
+    this.form.consumed_calories.value = log.consumed_calories;
+    this.form.total_exercise_minutes.value = log.total_exercise_minutes;
+    this.form.seven_minute.value = log.seven_minute;
+    this.form.actual_weight.value = log.actual_weight;
+    this.form.total_distance_miles.value = log.total_distance_miles;
+    this.form.is_fast.checked = log.is_fast;
+    this.form.is_sick.checked = log.is_sick;
+    this.form.is_sugar.checked = log.is_sugar;
+  }
+  // ------------------------------------------------------------------------------------------ //
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.id !== undefined) {
+      const options = { method: "get" };
+      fetch(`${this.props.BASE_URL}/logs/${nextProps.id}`, options)
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          this.set(json);
+        });
+    }
+  }
+  // ------------------------------------------------------------------------------------------ //
   render() {
     return (
       <div className="HealthForm">
         <form onSubmit={this.create}>
+          <input type="hidden" ref={x => (this.form.id = x)} />
           <input type="date" ref={x => (this.form.date = x)} />
           cals
           <input type="number" ref={x => (this.form.active_calories = x)} />

@@ -10,6 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.redraw = this.redraw.bind(this);
+    this.edit = this.edit.bind(this);
     this.state = { logs: [] };
   }
   // ------------------------------------------------------------------------------------------ //
@@ -24,15 +25,23 @@ class App extends Component {
         return response.json();
       })
       .then(json => {
-        this.setState({ logs: json.logs });
+        this.setState({ logs: json.logs, id: undefined });
       });
+  }
+  // ------------------------------------------------------------------------------------------ //
+  edit(id) {
+    this.setState({ id });
   }
   // ------------------------------------------------------------------------------------------ //
   render() {
     return (
       <div className="Health">
-        <HealthForm BASE_URL={BASE_URL} redraw={this.redraw} />
-        <HealthList logs={this.state.logs} />
+        <HealthForm
+          BASE_URL={BASE_URL}
+          redraw={this.redraw}
+          id={this.state.id}
+        />
+        <HealthList logs={this.state.logs} edit={this.edit} />
       </div>
     );
   }
