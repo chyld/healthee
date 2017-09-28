@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import Health from "./components/Health/Health";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Health />, document.getElementById("root"));

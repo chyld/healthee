@@ -1,24 +1,12 @@
 import React, { Component } from "react";
-import "./App.css";
-const BASE_URL = process.env.REACT_APP_RAILS_BASE_URL;
+import "./HealthForm.css";
+
 class App extends Component {
   // ------------------------------------------------------------------------------------------ //
   constructor(props) {
     super(props);
     this.create = this.create.bind(this);
     this.form = {};
-    this.state = { logs: [] };
-  }
-  // ------------------------------------------------------------------------------------------ //
-  componentDidMount() {
-    const options = { method: "get" };
-    fetch(`${BASE_URL}/logs`, options)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        this.setState({ logs: json.logs });
-      });
   }
   // ------------------------------------------------------------------------------------------ //
   create(event) {
@@ -38,19 +26,15 @@ class App extends Component {
       method: "post",
       body: JSON.stringify(body)
     };
-    fetch(`${BASE_URL}/logs`, options)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log("json post:", json);
-      });
+    fetch(`${this.props.BASE_URL}/logs`, options).then(_ => {
+      this.props.redraw();
+    });
     event.preventDefault();
   }
   // ------------------------------------------------------------------------------------------ //
   render() {
     return (
-      <div className="App">
+      <div className="HealthForm">
         <form onSubmit={this.create}>
           <input type="date" ref={x => (this.form.date = x)} />
           cals
@@ -84,49 +68,6 @@ class App extends Component {
           <input type="checkbox" ref={x => (this.form.is_sugar = x)} />
           <input type="submit" value="Submit" />
         </form>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Active</th>
-              <th>Passive</th>
-              <th>Burned</th>
-              <th>Consumed</th>
-              <th>Net</th>
-              <th>Pounds</th>
-              <th>Weight</th>
-              <th>Miles</th>
-              <th>Minutes</th>
-              <th>7 Min</th>
-              <th>Sugar?</th>
-              <th>Fast?</th>
-              <th>Sick?</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.logs.map((log, i) => {
-              return (
-                <tr key={i}>
-                  <td>{log.date}</td>
-                  <td>{log.active_calories}</td>
-                  <td>{log.passive_calories}</td>
-                  <td>{log.burned_calories}</td>
-                  <td>{log.consumed_calories}</td>
-                  <td>{log.net_calories}</td>
-                  <td>{log.net_pounds}</td>
-                  <td>{log.actual_weight}</td>
-                  <td>{log.total_distance_miles}</td>
-                  <td>{log.total_exercise_minutes}</td>
-                  <td>{log.seven_minute}</td>
-                  <td>{log.is_sugar.toString()}</td>
-                  <td>{log.is_fast.toString()}</td>
-                  <td>{log.is_sick.toString()}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
       </div>
     );
   }
