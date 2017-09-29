@@ -87,37 +87,112 @@ class App extends Component {
       <div className="HealthForm">
         <form onSubmit={this.create}>
           <input type="hidden" ref={x => (this.form.id = x)} />
-          <input type="date" ref={x => (this.form.date = x)} />
-          cals
-          <input type="number" ref={x => (this.form.active_calories = x)} />
-          eaten
-          <input type="number" ref={x => (this.form.consumed_calories = x)} />
-          min
-          <input
-            type="number"
-            ref={x => (this.form.total_exercise_minutes = x)}
-          />
-          7
-          <input type="number" ref={x => (this.form.seven_minute = x)} />
-          lbs
-          <input
-            type="number"
-            step="any"
-            ref={x => (this.form.actual_weight = x)}
-          />
-          miles
-          <input
-            type="number"
-            step="any"
-            ref={x => (this.form.total_distance_miles = x)}
-          />
-          fast
-          <input type="checkbox" ref={x => (this.form.is_fast = x)} />
-          sick
-          <input type="checkbox" ref={x => (this.form.is_sick = x)} />
-          sugar
-          <input type="checkbox" ref={x => (this.form.is_sugar = x)} />
-          <input type="submit" value="Submit" />
+          <div className="field is-horizontal">
+            <div className="field-body">
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input"
+                    type="date"
+                    ref={x => (this.form.date = x)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="Active Calories"
+                    type="number"
+                    ref={x => (this.form.active_calories = x)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="Consumed Calories"
+                    type="number"
+                    ref={x => (this.form.consumed_calories = x)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="Minutes Exercised"
+                    type="number"
+                    ref={x => (this.form.total_exercise_minutes = x)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="# 7-Min"
+                    type="number"
+                    ref={x => (this.form.seven_minute = x)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="Weight"
+                    type="number"
+                    step="any"
+                    ref={x => (this.form.actual_weight = x)}
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="Miles Traveled"
+                    type="number"
+                    step="any"
+                    ref={x => (this.form.total_distance_miles = x)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="field is-horizontal">
+            <div className="field-body">
+              <div className="field">
+                <div className="control">
+                  <label>Fast?</label>
+                  <input type="checkbox" ref={x => (this.form.is_fast = x)} />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <label>Sick?</label>
+                  <input type="checkbox" ref={x => (this.form.is_sick = x)} />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <label>Sugar?</label>
+                  <input type="checkbox" ref={x => (this.form.is_sugar = x)} />
+                </div>
+              </div>
+              <div className="field">
+                <div className="control">
+                  <input
+                    className="button is-danger"
+                    type="submit"
+                    value="Submit"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     );

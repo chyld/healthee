@@ -4,7 +4,7 @@ import "./HealthList.css";
 export default props => {
   return (
     <div className="HealthList">
-      <table>
+      <table className="table is-bordered is-striped is-narrow is-fullwidth">
         <thead>
           <tr>
             <th>Date</th>
@@ -28,7 +28,12 @@ export default props => {
             return (
               <tr key={i}>
                 <td>
-                  <button onClick={_ => props.edit(log.id)}>{log.date}</button>
+                  <button
+                    className="button is-info is-outlined is-small"
+                    onClick={_ => props.edit(log.id)}
+                  >
+                    {log.date}
+                  </button>
                 </td>
                 <td>{log.active_calories}</td>
                 <td>{log.passive_calories}</td>

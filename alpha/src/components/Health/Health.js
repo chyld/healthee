@@ -36,12 +36,19 @@ class App extends Component {
   render() {
     return (
       <div className="Health">
-        <HealthForm
-          BASE_URL={BASE_URL}
-          redraw={this.redraw}
-          id={this.state.id}
-        />
-        <HealthList logs={this.state.logs} edit={this.edit} />
+        <div className="container">
+          <h1 className="title">Healthee</h1>
+        </div>
+        <div className="container">
+          <HealthForm
+            BASE_URL={BASE_URL}
+            redraw={this.redraw}
+            id={this.state.id}
+          />
+        </div>
+        <div className="container">
+          <HealthList logs={this.state.logs} edit={this.edit} />
+        </div>
       </div>
     );
   }
